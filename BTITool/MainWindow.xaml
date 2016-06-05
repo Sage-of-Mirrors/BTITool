@@ -1,0 +1,60 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BTITool"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="BTITool.MainWindow"
+        Title="BTITool" Height="506.025" Width="525">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="278*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="236*"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+        <DockPanel Height="20" VerticalAlignment="Top" Grid.ColumnSpan="3">
+            <Menu Margin="0,0,0,0" Height="20" DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open..." Command="{Binding OnRequestOpenImages}"/>
+                    <MenuItem Header="_Save Selected..." Command="{Binding OnRequestOpenWiki}"/>
+                    <MenuItem Header="Save _All..." Command="{Binding OnRequestReportBug}"/>
+                    <Separator/>
+                    <MenuItem Header="_Clear List" Command="{Binding OnRequestClearList}"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About" Command="{Binding OnRequestDisplayAbout}"/>
+                    <MenuItem Header="_Wiki" Command="{Binding OnRequestOpenWiki}"/>
+                    <MenuItem Header="_Report a bug..." Command="{Binding OnRequestReportBug}"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <DockPanel LastChildFill="True" Margin="0,20,0,144">
+            <Grid>
+                <ListBox Margin="10,10,9,10" ItemsSource="{Binding ImageList}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="local:BinaryTextureImage">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding DisplaySource}" HorizontalAlignment="Left" Width="128" Height="128"/>
+                                <Label Content="{Binding Name}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </DockPanel>
+        <DockPanel LastChildFill="True" Margin="1,20,0,0" Grid.Column="2">
+            <Grid>
+                <xctk:PropertyGrid Margin="10" ShowSearchBox="False" ShowSortOptions="False" ShowSummary="False" ShowTitle="False"/>
+            </Grid>
+        </DockPanel>
+        <DockPanel LastChildFill="True" Height="144" VerticalAlignment="Bottom">
+            <Grid>
+                <Button Content="Add File(s)..." Command="{Binding OnRequestOpenImages}" Margin="10,0,10,102" Height="41" VerticalAlignment="Bottom"/>
+                <Button Content="Save All..." Margin="10,0,10,56" Height="41" VerticalAlignment="Bottom"/>
+                <Button Content="Clear List" Command="{Binding OnRequestClearList}" Margin="10,0,10,10" Height="41" VerticalAlignment="Bottom"/>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
