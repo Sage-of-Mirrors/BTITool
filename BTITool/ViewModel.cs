@@ -40,11 +40,6 @@ namespace BTITool
                 }
             }
         }
-        
-        public ViewModel()
-        {
-
-        }
 
         #region Input/Output
         private void OpenImages()
@@ -119,6 +114,19 @@ namespace BTITool
         }
         #endregion
 
+        #region Misc.
+        private void OpenWebpage(string address)
+        {
+            System.Diagnostics.Process.Start(address);
+        }
+
+        private void OpenAboutWindow()
+        {
+            AboutWindow win = new AboutWindow();
+            win.ShowDialog();
+        }
+        #endregion
+
         #region Command Callbacks
         /// <summary> The user has requested to open an image/some images. </summary>
         public ICommand OnRequestOpenImages
@@ -126,10 +134,28 @@ namespace BTITool
             get { return new RelayCommand(x => OpenImages()); }
         }
 
-        /// <summary> The user has requested to open an image/some images. </summary>
+        /// <summary> The user has requested to clear the current list of images. </summary>
         public ICommand OnRequestClearList
         {
             get { return new RelayCommand(x => ClearImageList(), x => ImageList != null); }
+        }
+
+        /// <summary> The user has requested to be sent to the Wiki page of the Github project. </summary>
+        public ICommand OnRequestOpenWiki
+        {
+            get { return new RelayCommand(x => OpenWebpage("https://github.com/Sage-of-Mirrors/BTITool/wiki")); }
+        }
+
+        /// <summary> The user has requested to be sent to the Issues page of the Github project. </summary>
+        public ICommand OnRequestReportBug
+        {
+            get { return new RelayCommand(x => OpenWebpage("https://github.com/Sage-of-Mirrors/BTITool/issues")); }
+        }
+
+        /// <summary> The user has requested to be sent to the Issues page of the Github project. </summary>
+        public ICommand OnRequestOpenAbout
+        {
+            get { return new RelayCommand(x => OpenAboutWindow()); }
         }
         #endregion
     }

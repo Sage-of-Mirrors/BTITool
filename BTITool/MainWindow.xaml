@@ -24,7 +24,7 @@
                     <MenuItem Header="_Clear List" Command="{Binding OnRequestClearList}"/>
                 </MenuItem>
                 <MenuItem Header="_Help">
-                    <MenuItem Header="_About" Command="{Binding OnRequestDisplayAbout}"/>
+                    <MenuItem Header="_About" Command="{Binding OnRequestOpenAbout}"/>
                     <MenuItem Header="_Wiki" Command="{Binding OnRequestOpenWiki}"/>
                     <MenuItem Header="_Report a bug..." Command="{Binding OnRequestReportBug}"/>
                 </MenuItem>
