@@ -129,7 +129,7 @@ namespace BTITool
                 SaveFileDialog saveFile = new SaveFileDialog();
                 saveFile.FileName = System.IO.Path.GetFileNameWithoutExtension(img.Name);
                 saveFile.DefaultExt = ".bmp";
-                saveFile.Filter = "Bitmap Graphics (*.bmp)|*.bmp|All Files (*.*)|*.*";
+                saveFile.Filter = "PNG Image (*.png)|*.png|All Files (*.*)|*.*";
                 saveFile.FilterIndex = 0;
                 saveFile.RestoreDirectory = true;
                 if (saveFile.ShowDialog() == true) //nullable bool, have to explicitly compare against true
