@@ -13381,6 +13381,8 @@
     <value />
   </data>
   <data name="textBoxDescription.Text" xml:space="preserve">
-    <value>Written in 2016 by Sage of Mirrors. Thanks to many people for their work in figuring out the BTI format. Special thanks to Chadderz for the BTI format support and Dmitry Brant for TGA support. Biggest thanks to LordNed, for helping me become a programmer. Updated 2021-11-15 Andrew Piroli</value>
+    <value>Written in 2016 by Sage of Mirrors. Thanks to many people for their work in figuring out the BTI format. Special thanks to Chadderz for the BTI format support and Dmitry Brant for TGA support. Biggest thanks to LordNed, for helping me become a programmer.
+
+Updated 2021-11-15 Andrew Piroli - Enabled Save All and Save Selected as bitmap export only.</value>
   </data>
 </root>
