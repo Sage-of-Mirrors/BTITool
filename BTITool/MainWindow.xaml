@@ -36,7 +36,7 @@
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="88*"/>
                 </Grid.ColumnDefinitions>
-                <ListBox x:Name="listBox" Margin="10,10,8.667,9.667" ItemsSource="{Binding ImageList}" Grid.ColumnSpan="2">
+                <ListBox x:Name="listBox" Margin="10,10,8.667,9.667" ItemsSource="{Binding ImageList}" Grid.ColumnSpan="2" SelectionMode="Extended">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="local:BinaryTextureImage">
                             <StackPanel Orientation="Horizontal">
