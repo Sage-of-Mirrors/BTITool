@@ -91,8 +91,14 @@ namespace BTITool
 
                     openedImage = new BinaryTextureImage(path, input, BinaryTextureImage.TextureFormats.TGA);
                 }
-
-                tempList.Add(openedImage);
+                else
+                {
+                    continue;
+                }
+                if (openedImage != null)
+                {
+                    tempList.Add(openedImage);
+                }
             }
 
             return tempList;
