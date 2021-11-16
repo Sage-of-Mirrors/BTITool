@@ -18,7 +18,7 @@
             <Menu Margin="0,0,0,0" Height="20" DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open..." Command="{Binding OnRequestOpenImages}"/>
-                    <MenuItem Header="_Save Selected..." Command="{Binding OnRequestOpenWiki}" IsEnabled="False"/>
+                    <MenuItem Header="_Save Selected..." Command="{Binding SaveSelected, Mode=OneWay}" CommandParameter="{Binding ElementName=listBox, Mode=OneWay}"/>
                     <MenuItem Header="Save _All..." Command="{Binding SaveAll, Mode=OneWay}"/>
                     <Separator/>
                     <MenuItem Header="_Clear List" Command="{Binding OnRequestClearList}"/>
@@ -32,7 +32,11 @@
         </DockPanel>
         <DockPanel LastChildFill="True" Margin="0,20,0,144">
             <Grid>
-                <ListBox Margin="10,10,9,10" ItemsSource="{Binding ImageList}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="88*"/>
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="listBox" Margin="10,10,8.667,9.667" ItemsSource="{Binding ImageList}" Grid.ColumnSpan="2">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="local:BinaryTextureImage">
                             <StackPanel Orientation="Horizontal">

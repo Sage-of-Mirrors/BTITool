@@ -98,19 +98,34 @@ namespace BTITool
             return tempList;
         }
 
-        private void SaveSelectedImages()
+        private void SaveSelectedImages(object theWholeListBox_sorry) // I'm sorry, this is the easiest way.
         {
-
+            try
+            {
+                System.Windows.Controls.ListBox imagesListBox = theWholeListBox_sorry as System.Windows.Controls.ListBox;
+                if (imagesListBox == null)
+                {
+                    return;
+                }
+                System.Collections.IList selected = (System.Collections.IList)imagesListBox.SelectedItems;
+                InternalSave(selected.Cast<BinaryTextureImage>());
+            }
+            catch (InvalidCastException){ }
         }
 
         private void SaveAllImages()
         {
-            if (ImageList == null)
+            InternalSave(ImageList);
+        }
+
+        private void InternalSave(IEnumerable<BinaryTextureImage> toSave)
+        {
+            foreach (BinaryTextureImage img in toSave)
             {
-                return;
-            }
-            foreach (BinaryTextureImage img in ImageList)
-            {
+                if (img == null)
+                {
+                    continue;
+                }
                 SaveFileDialog saveFile = new SaveFileDialog();
                 saveFile.FileName = System.IO.Path.GetFileNameWithoutExtension(img.Name);
                 saveFile.DefaultExt = ".bmp";
@@ -144,9 +159,13 @@ namespace BTITool
         #endregion
 
         #region Command Callbacks
+        public ICommand SaveSelected
+        {
+            get { return new RelayCommand(SaveSelectedImages); }
+        }
         public ICommand SaveAll
         {
-            get { return new RelayCommand(x => SaveAllImages());  }
+            get { return new RelayCommand(x => SaveAllImages(), x=> ImageList != null); }
         }
         /// <summary> The user has requested to open an image/some images. </summary>
         public ICommand OnRequestOpenImages
