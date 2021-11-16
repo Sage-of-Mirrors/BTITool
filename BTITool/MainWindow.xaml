@@ -18,8 +18,8 @@
             <Menu Margin="0,0,0,0" Height="20" DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open..." Command="{Binding OnRequestOpenImages}"/>
-                    <MenuItem Header="_Save Selected..." Command="{Binding OnRequestOpenWiki}"/>
-                    <MenuItem Header="Save _All..." Command="{Binding OnRequestReportBug}"/>
+                    <MenuItem Header="_Save Selected..." Command="{Binding SaveSelected, Mode=OneWay}" CommandParameter="{Binding ElementName=listBox, Mode=OneWay}"/>
+                    <MenuItem Header="Save _All..." Command="{Binding SaveAll, Mode=OneWay}"/>
                     <Separator/>
                     <MenuItem Header="_Clear List" Command="{Binding OnRequestClearList}"/>
                 </MenuItem>
@@ -32,7 +32,11 @@
         </DockPanel>
         <DockPanel LastChildFill="True" Margin="0,20,0,144">
             <Grid>
-                <ListBox Margin="10,10,9,10" ItemsSource="{Binding ImageList}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="88*"/>
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="listBox" Margin="10,10,8.667,9.667" ItemsSource="{Binding ImageList}" Grid.ColumnSpan="2" SelectionMode="Extended">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="local:BinaryTextureImage">
                             <StackPanel Orientation="Horizontal">
@@ -52,7 +56,7 @@
         <DockPanel LastChildFill="True" Height="144" VerticalAlignment="Bottom">
             <Grid>
                 <Button Content="Add File(s)..." Command="{Binding OnRequestOpenImages}" Margin="10,0,10,102" Height="41" VerticalAlignment="Bottom"/>
-                <Button Content="Save All..." Margin="10,0,10,56" Height="41" VerticalAlignment="Bottom"/>
+                <Button Content="Save All..." Margin="10,0,10,56" Height="41" VerticalAlignment="Bottom" Command="{Binding SaveAll, Mode=OneWay}"/>
                 <Button Content="Clear List" Command="{Binding OnRequestClearList}" Margin="10,0,10,10" Height="41" VerticalAlignment="Bottom"/>
             </Grid>
         </DockPanel>

@@ -20,7 +20,7 @@ namespace BTITool
     /// 
     /// BTI files are stored both individually on disk and embedded within other file formats. 
     /// </summary>
-    public class BinaryTextureImage : INotifyPropertyChanged
+    public class BinaryTextureImage : INotifyPropertyChanged, IEquatable<BinaryTextureImage>
     {
         #region NotifyPropertyChanged overhead
         public event PropertyChangedEventHandler PropertyChanged;
@@ -1282,6 +1282,57 @@ namespace BTITool
                 return true;
             else
                 return false;
+        }
+
+        public bool Equals(BinaryTextureImage other)
+        {
+            return other != null &&
+                   Name == other.Name &&
+                   Format == other.Format &&
+                   AlphaSetting == other.AlphaSetting &&
+                   Width == other.Width &&
+                   Height == other.Height &&
+                   WrapS == other.WrapS &&
+                   WrapT == other.WrapT &&
+                   PaletteFormat == other.PaletteFormat &&
+                   PaletteCount == other.PaletteCount &&
+                   EqualityComparer<Color32>.Default.Equals(BorderColor, other.BorderColor) &&
+                   MinFilter == other.MinFilter &&
+                   MagFilter == other.MagFilter &&
+                   MinLOD == other.MinLOD &&
+                   MagLOD == other.MagLOD &&
+                   MipMapCount == other.MipMapCount &&
+                   LodBias == other.LodBias &&
+                   EqualityComparer<System.Windows.Media.Imaging.BitmapSource>.Default.Equals(DisplaySource, other.DisplaySource) &&
+                   EqualityComparer<System.Windows.Media.Imaging.BitmapSource>.Default.Equals(m_displaySource, other.m_displaySource) &&
+                   EqualityComparer<Palette>.Default.Equals(m_imagePalette, other.m_imagePalette) &&
+                   EqualityComparer<byte[]>.Default.Equals(m_rgbaImageData, other.m_rgbaImageData);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1897818637;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + Format.GetHashCode();
+            hashCode = hashCode * -1521134295 + AlphaSetting.GetHashCode();
+            hashCode = hashCode * -1521134295 + Width.GetHashCode();
+            hashCode = hashCode * -1521134295 + Height.GetHashCode();
+            hashCode = hashCode * -1521134295 + WrapS.GetHashCode();
+            hashCode = hashCode * -1521134295 + WrapT.GetHashCode();
+            hashCode = hashCode * -1521134295 + PaletteFormat.GetHashCode();
+            hashCode = hashCode * -1521134295 + PaletteCount.GetHashCode();
+            hashCode = hashCode * -1521134295 + BorderColor.GetHashCode();
+            hashCode = hashCode * -1521134295 + MinFilter.GetHashCode();
+            hashCode = hashCode * -1521134295 + MagFilter.GetHashCode();
+            hashCode = hashCode * -1521134295 + MinLOD.GetHashCode();
+            hashCode = hashCode * -1521134295 + MagLOD.GetHashCode();
+            hashCode = hashCode * -1521134295 + MipMapCount.GetHashCode();
+            hashCode = hashCode * -1521134295 + LodBias.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<System.Windows.Media.Imaging.BitmapSource>.Default.GetHashCode(DisplaySource);
+            hashCode = hashCode * -1521134295 + EqualityComparer<System.Windows.Media.Imaging.BitmapSource>.Default.GetHashCode(m_displaySource);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Palette>.Default.GetHashCode(m_imagePalette);
+            hashCode = hashCode * -1521134295 + EqualityComparer<byte[]>.Default.GetHashCode(m_rgbaImageData);
+            return hashCode;
         }
 
         public static bool operator ==(BinaryTextureImage left, BinaryTextureImage right)

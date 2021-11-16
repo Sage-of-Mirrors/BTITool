@@ -25,9 +25,10 @@ namespace BTITool
         private void AboutWindow_Load(object sender, EventArgs e)
         {
             Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            DateTime buildDate = new DateTime(2000, 1, 1).AddDays(appVersion.Build).AddSeconds(appVersion.Revision * 2);
+            // Unfortunately this doesn't work anymore, and the replacements are ugly IMO
+            //DateTime buildDate = new DateTime(2000, 1, 1).AddDays(appVersion.Build).AddSeconds(appVersion.Revision * 2);
 
-            labelVersion.Text = "[Build: " + buildDate.ToString(CultureInfo.InvariantCulture) + "]";
+            labelVersion.Text = "[Build: " + appVersion.ToString() + "]";
         }
     }
 }

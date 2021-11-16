@@ -91,21 +91,58 @@ namespace BTITool
 
                     openedImage = new BinaryTextureImage(path, input, BinaryTextureImage.TextureFormats.TGA);
                 }
-
-                tempList.Add(openedImage);
+                else
+                {
+                    continue;
+                }
+                if (openedImage != null)
+                {
+                    tempList.Add(openedImage);
+                }
             }
 
             return tempList;
         }
 
-        private void SaveSelectedImages()
+        private void SaveSelectedImages(object theWholeListBox_sorry) // I'm sorry, this is the easiest way.
         {
-
+            try
+            {
+                System.Windows.Controls.ListBox imagesListBox = theWholeListBox_sorry as System.Windows.Controls.ListBox;
+                if (imagesListBox == null)
+                {
+                    return;
+                }
+                System.Collections.IList selected = (System.Collections.IList)imagesListBox.SelectedItems;
+                InternalSave(selected.Cast<BinaryTextureImage>());
+            }
+            catch (InvalidCastException){ }
         }
 
         private void SaveAllImages()
         {
+            InternalSave(ImageList);
+        }
 
+        private void InternalSave(IEnumerable<BinaryTextureImage> toSave)
+        {
+            foreach (BinaryTextureImage img in toSave)
+            {
+                if (img == null)
+                {
+                    continue;
+                }
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.FileName = System.IO.Path.GetFileNameWithoutExtension(img.Name);
+                saveFile.DefaultExt = ".png";
+                saveFile.Filter = "PNG Image (*.png)|*.png|All Files (*.*)|*.*";
+                saveFile.FilterIndex = 0;
+                saveFile.RestoreDirectory = true;
+                if (saveFile.ShowDialog() == true) //nullable bool, have to explicitly compare against true
+                {
+                    img.SaveImageToDisk(saveFile.FileName, img.GetData(), img.Width, img.Height);
+                }
+            }
         }
 
         private void ClearImageList()
@@ -128,6 +165,14 @@ namespace BTITool
         #endregion
 
         #region Command Callbacks
+        public ICommand SaveSelected
+        {
+            get { return new RelayCommand(SaveSelectedImages); }
+        }
+        public ICommand SaveAll
+        {
+            get { return new RelayCommand(x => SaveAllImages(), x=> ImageList != null); }
+        }
         /// <summary> The user has requested to open an image/some images. </summary>
         public ICommand OnRequestOpenImages
         {
