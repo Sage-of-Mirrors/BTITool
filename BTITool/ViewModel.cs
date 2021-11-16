@@ -134,7 +134,7 @@ namespace BTITool
                 }
                 SaveFileDialog saveFile = new SaveFileDialog();
                 saveFile.FileName = System.IO.Path.GetFileNameWithoutExtension(img.Name);
-                saveFile.DefaultExt = ".bmp";
+                saveFile.DefaultExt = ".png";
                 saveFile.Filter = "PNG Image (*.png)|*.png|All Files (*.*)|*.*";
                 saveFile.FilterIndex = 0;
                 saveFile.RestoreDirectory = true;
