@@ -18,8 +18,8 @@
             <Menu Margin="0,0,0,0" Height="20" DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open..." Command="{Binding OnRequestOpenImages}"/>
-                    <MenuItem Header="_Save Selected..." Command="{Binding OnRequestOpenWiki}"/>
-                    <MenuItem Header="Save _All..." Command="{Binding OnRequestReportBug}"/>
+                    <MenuItem Header="_Save Selected..." Command="{Binding OnRequestOpenWiki}" IsEnabled="False"/>
+                    <MenuItem Header="Save _All..." Command="{Binding SaveAll, Mode=OneWay}"/>
                     <Separator/>
                     <MenuItem Header="_Clear List" Command="{Binding OnRequestClearList}"/>
                 </MenuItem>
@@ -52,7 +52,7 @@
         <DockPanel LastChildFill="True" Height="144" VerticalAlignment="Bottom">
             <Grid>
                 <Button Content="Add File(s)..." Command="{Binding OnRequestOpenImages}" Margin="10,0,10,102" Height="41" VerticalAlignment="Bottom"/>
-                <Button Content="Save All..." Margin="10,0,10,56" Height="41" VerticalAlignment="Bottom"/>
+                <Button Content="Save All..." Margin="10,0,10,56" Height="41" VerticalAlignment="Bottom" Command="{Binding SaveAll, Mode=OneWay}"/>
                 <Button Content="Clear List" Command="{Binding OnRequestClearList}" Margin="10,0,10,10" Height="41" VerticalAlignment="Bottom"/>
             </Grid>
         </DockPanel>

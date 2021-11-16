@@ -105,7 +105,20 @@ namespace BTITool
 
         private void SaveAllImages()
         {
-
+            if (ImageList == null)
+            {
+                return;
+            }
+            foreach (BinaryTextureImage img in ImageList)
+            {
+                SaveFileDialog saveFile = new SaveFileDialog();
+                saveFile.FileName = System.IO.Path.GetFileNameWithoutExtension(img.Name);
+                saveFile.DefaultExt = ".bmp";
+                if (saveFile.ShowDialog() == true) //nullable bool, have to explicitly compare against true
+                {
+                    img.SaveImageToDisk(saveFile.FileName, img.GetData(), img.Width, img.Height);
+                }
+            }
         }
 
         private void ClearImageList()
@@ -128,6 +141,10 @@ namespace BTITool
         #endregion
 
         #region Command Callbacks
+        public ICommand SaveAll
+        {
+            get { return new RelayCommand(x => SaveAllImages());  }
+        }
         /// <summary> The user has requested to open an image/some images. </summary>
         public ICommand OnRequestOpenImages
         {
